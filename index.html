@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAGORON - Book Your Tickets</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <!-- Lucide Icons CDN for Ticket Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN for Ticket Icons --><script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -41,44 +38,53 @@
         .cta-button:active {
             transform: scale(0.98);
         }
+        /* Ensures the header background is visible through the opacity, and the backdrop blur makes it smooth */
+        .nav-transparent {
+            /* Opacity set to 30% */
+            background-color: rgba(255, 255, 255, 0.3); 
+            backdrop-filter: blur(8px); /* Add a slight blur effect for modern look */
+        }
     </style>
 </head>
 <body class="min-h-screen">
-    <div id="app" class="container mx-auto p-4 md:p-8">
-
-        <!-- Navigation Bar (Identical to previous version) -->
-        <header class="flex flex-col md:flex-row justify-between items-center bg-white p-4 md:p-6 rounded-xl shadow-lg mb-12 sticky top-0 z-50">
+    
+    <!-- Header: Responsive, Sticky, Transparent Navigation Bar (Updated) -->
+    <header class="w-full flex justify-center sticky top-0 z-50 nav-transparent shadow-lg mb-12">
+        <!-- Inner container to keep content centered and padded -->
+        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center py-4 md:py-6">
             
-            <!-- Left Group: JAGORON and Home -->
-            <div class="flex flex-col md:flex-row items-center mb-4 md:mb-0">
-                <!-- JAGORON Text -->
-                <div class="text-3xl font-extrabold text-indigo-600 tracking-wider mb-2 md:mb-0 md:mr-6">
-                    <!-- Updated: Link to Home page URL -->
+            <!-- Left Group: JAGORON (Hidden Mobile) and Home Button -->
+            <div class="flex items-center">
+                <!-- JAGORON Text: Hidden on mobile, visible from md breakpoint -->
+                <div class="hidden md:block text-3xl font-extrabold text-indigo-600 tracking-wider md:mr-6">
                     <a href="https://jagoronculturalsio.github.io/home/">JAGORON</a>
                 </div>
-                <!-- Home Button (Standard) -->
+                <!-- Home Button: Smaller text and padding for mobile (text-xs px-1.5 py-0.5) -->
                 <a href="https://jagoronculturalsio.github.io/home/" id="homeButton" 
-                   class="nav-button px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">
+                   class="nav-button text-xs px-1.5 py-0.5 md:text-base md:px-4 md:py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">
                     Home
                 </a>
             </div>
             
             <!-- Right Group: Nav Links (About, Contact, Location, Ticket) -->
-            <nav class="flex flex-wrap justify-center space-x-2 md:space-x-4 font-semibold">
-                <!-- Updated: Link to About page URL -->
-                <a href="https://jagoronculturalsio.github.io/about/" class="nav-button p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">About</a>
-                <!-- Updated: Link to Contact page URL -->
-                <a href="https://jagoronculturalsio.github.io/contact/" class="nav-button p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">Contact</a>
-                <!-- Changed: Address to Location -->
-                <a href="https://jagoronculturalsio.github.io/address/" class="nav-button p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">Location</a>
-                <!-- TickeT button (Highlighted/Active) -->
+            <!-- Reduced space-x to 0.5 for tight mobile fit -->
+            <nav class="flex space-x-0.5 md:space-x-4 font-semibold">
+                <!-- All Right buttons: Smaller text and padding for mobile (text-xs px-1.5 py-0.5) -->
+                <a href="https://jagoronculturalsio.github.io/about/" class="nav-button text-xs px-1.5 py-0.5 md:text-base md:px-4 md:py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">About</a>
+                <!-- Contact Link -->
+                <a href="https://jagoronculturalsio.github.io/contact/" class="nav-button text-xs px-1.5 py-0.5 md:text-base md:px-4 md:py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">Contact</a>
+                <a href="https://jagoronculturalsio.github.io/address/" class="nav-button text-xs px-1.5 py-0.5 md:text-base md:px-4 md:py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300">Location</a>
+                <!-- Ticket Active Button -->
                 <button id="navTicketButton" 
-                    class="nav-button nav-active px-4 py-2 rounded-lg transition duration-300 shadow-sm border border-gray-200"
+                    class="nav-button nav-active text-xs px-1.5 py-0.5 md:text-base md:px-4 md:py-2 rounded-lg transition duration-300"
                     onclick="handleTicketClick()">
                     Ticket
                 </button>
             </nav>
-        </header>
+        </div>
+    </header>
+
+    <div id="app" class="container mx-auto p-4 md:p-8 pt-0"> <!-- pt-0 added to negate mb-12 from header -->
 
         <main class="space-y-12">
             
@@ -182,7 +188,6 @@
             const ps = document.getElementById('ps').value;
             const district = document.getElementById('district').value;
             const pin = document.getElementById('pin').value;
-            // The Preferred Ticket Type field has been removed from the form.
             
             // Construct the message (all in English)
             const message = encodeURIComponent(
@@ -213,8 +218,8 @@
                 lucide.createIcons();
             }
             // Ensure the ticket button is visible if it's the active page
-            document.getElementById('navTicketButton').classList.add('nav-active');
-
+            // document.getElementById('navTicketButton').classList.add('nav-active'); // This is now handled directly in HTML
+            
             // Attach the new form submission handler
             const form = document.getElementById(WHATSAPP_FORM_ID);
             if (form) {
